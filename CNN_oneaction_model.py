@@ -1,7 +1,3 @@
-################################################################################
-#######################        IMPORT LIBRARY         ##########################
-################################################################################
-
 import os
 import cv2
 import math
@@ -11,14 +7,8 @@ import datetime as dt
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
-# from sklearn.model_selection import train_test_split
-
-################################################################################
-#######################        GLOBAL SETTINGS        ##########################
-################################################################################
-
 # Define subcategories
-classes_list = ['adjusting','calling','drinking','grooming','reaching','safe','talking','texting']
+classes_list = ['adjusting','calling','drinking','grooming','reaching','driving safe','talking','texting']
 
 # Define model output nodes
 model_output_size = len(classes_list)
@@ -27,19 +17,12 @@ model_output_size = len(classes_list)
 image_height, image_width = 224, 224
 
 
-################################################################################
-#######################        LOAD MODEL             ##########################
-################################################################################
-
 # Load the CNN model
-Model_Path = 'model_MobileNetV2_9418.h5'
+Model_Path = 'model_MobileNetV2_Final.h5'
 
 model = tf.keras.models.load_model(Model_Path)
 
-################################################################################
-#######################        MAKE PREDICTION         #########################
-################################################################################
-
+# Function for prediction
 def make_average_predictions(video_file_path, predictions_frames_count):
     probability = []
     idx_sorted =[]
@@ -93,7 +76,7 @@ def make_average_predictions(video_file_path, predictions_frames_count):
     result6 = classes_list[idx_sorted[6]]
     result7 = classes_list[idx_sorted[7]]
     
-
+    # create a dictionary result
     dict_result = {result0:probability[idx_sorted[0]],
                    result1:probability[idx_sorted[1]],
                    result2:probability[idx_sorted[2]],
